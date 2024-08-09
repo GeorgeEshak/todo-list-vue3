@@ -1,28 +1,28 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
 interface Task {
   id: number;
   title: string;
   description: string;
-  status: "todo" | "in progress" | "done";
+  status: 'todo' | 'in progress' | 'done';
+  validated: boolean
 }
 
-export const useAppStore = defineStore("app", {
+export const useAppStore = defineStore('app', {
   state: () => ({
-    tasks: [
-      {
-        id: 1,
-        title: "Task 1",
-        description: "Description for Task 1",
-        status: "todo",
-      },
-    ] as Task[],
+    tasks: [] as Task[],
   }),
   actions: {
     getTasks () {
-      this.tasks = JSON.parse(localStorage.getItem('tasks') as any)
+      if (localStorage.getItem('tasks')) {
+        this.tasks = JSON.parse(localStorage.getItem('tasks') as any);
+      }
     },
     addTask(task: Task) {
+      task = {
+        ...task,
+        id: this.tasks.length + 1
+      }
       this.tasks.push(task);
       localStorage.setItem('tasks', JSON.stringify(this.tasks))
     },
@@ -41,7 +41,7 @@ export const useAppStore = defineStore("app", {
     markTaskAsComplete(taskId: number) {
       const task = this.tasks.find((task) => task.id === taskId);
       if (task) {
-        task.status = "done";
+        task.status = 'done';
       }
       localStorage.setItem('tasks', JSON.stringify(this.tasks))
     },

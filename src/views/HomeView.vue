@@ -27,28 +27,30 @@
       :taskInfo="taskInfo"
     >
     </TaskModel>
-    <button @click="showModel()">ADD</button>
+    <button v-if="!show" @click="showModel()">ADD</button>
   </div>
 </template>
-<script setup lang="ts">
-import { onMounted, ref, type Ref } from "vue";
-import TaskModel from "../components/TaskModel.vue";
-import { useAppStore } from "@/stores/index";
+<script setup lang='ts'>
+import { onMounted, ref, type Ref } from 'vue';
+import TaskModel from '../components/TaskModel.vue';
+import { useAppStore } from '@/stores/index';
 
 interface Task {
   id: number;
   title: string;
   description: string;
-  status: "todo" | "in progress" | "done";
+  status: 'todo' | 'in progress' | 'done';
+  validated: boolean
 }
 
 const store = useAppStore();
 const show: Ref<boolean> = ref(false);
 const taskInfo: Ref<Task | null> = ref({
   id: 0,
-  title: "",
-  description: "",
-  status: "todo",
+  title: '',
+  description: '',
+  status: 'todo',
+  validated: false
 });
 
 const draggedIndex: Ref<number | null> = ref(null);

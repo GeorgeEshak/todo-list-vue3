@@ -1,1 +1,13 @@
-# todo-list-vue3
+# ToDo List
+
+#### Install npm
+
+```js
+npm install
+```
+
+#### Run serve
+
+```js
+npm run dev
+```
