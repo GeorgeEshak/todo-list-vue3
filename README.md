@@ -6,7 +6,7 @@
 npm install
 ```
 
-#### Run serve
+#### Run server
 
 ```js
 npm run dev
